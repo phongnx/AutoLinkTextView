@@ -1,0 +1,2 @@
+include ':app', ':auto-link-textview'
+rootProject.name='AutoLinkTextView'
