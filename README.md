@@ -22,7 +22,7 @@ The current minSDK version is API level 16 Android 4.1 (ICE CREAM SANDWICH).
 
 Gradle:
 ```groovy
-compile 'com.github.phongnx:AutoLinkTextView:1.0'
+implementation 'com.github.phongnx:AutoLinkTextView:1.0'
 ```
 
 ## Setup and usage
@@ -41,8 +41,7 @@ AutoLinkTextView autoLinkTextView = (AutoLinkTextView) findViewById(R.id.active)
 
 Set up mode or modes
 ```java
-autoLinkTextView.addAutoLinkMode(
-                AutoLinkMode.MODE_PHONE);
+autoLinkTextView.addAutoLinkMode(AutoLinkMode.MODE_PHONE);
 ```
 
 Set text to AutoLinkTextView
