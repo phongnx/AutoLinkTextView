@@ -2,7 +2,7 @@
 AutoLinkTextView is TextView that supports Hashtags (#), Mentions (@) , URLs (http://),
 Phone and Email automatically detecting and ability to handle clicks.
 
-The current minSDK version is API level 16 Android 4.1 (ICE CREAM SANDWICH).
+The current minSDK version is API level 16 Android 4.1 (Jelly Bean).
 
 ## Download sample [apk][77]
 [77]: https://github.com/phongnx/AutoLinkTextView/raw/master/screens/AutoLinkTextView.apk
@@ -150,7 +150,7 @@ License
 
 
       Auto Link TextView library for Android
-      Copyright (c) 2018 Arman Chatikyan (https://github.com/phongnx/AutoLinkTextView).
+      Copyright (c) 2019 PhongNX (https://github.com/phongnx/AutoLinkTextView).
 
       Licensed under the Apache License, Version 2.0 (the "License");
       you may not use this file except in compliance with the License.
