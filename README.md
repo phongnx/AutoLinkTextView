@@ -46,7 +46,7 @@ autoLinkTextView.addAutoLinkMode(AutoLinkMode.MODE_PHONE);
 
 Set text to AutoLinkTextView
 ```java
-autoLinkTextView.setAutoLinkText(getString(R.string.long_text));
+autoLinkTextView.setText(getString(R.string.long_text));
 ```
 
 Set AutoLinkTextView click listener
@@ -92,7 +92,7 @@ AutoLinkModes
 if you use custom mode, you should also add custom regex,
 
 ```java
-autoLinkTextView.setCustomRegex("Allo");
+autoLinkTextView.addCustomRegex("Allo");
 ```
 Note:Otherwise ```MODE_CUSTOM``` will return ```MODE_URL```
 -------------------------
