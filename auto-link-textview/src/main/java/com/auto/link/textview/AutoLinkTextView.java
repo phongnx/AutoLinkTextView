@@ -132,8 +132,8 @@ public class AutoLinkTextView extends TextView {
         for (AutoLinkMode anAutoLinkMode : autoLinkModes) {
             for (String customRegex : customRegexList) {
                 String regex = Utils.getRegexByAutoLinkMode(anAutoLinkMode, customRegex);
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(text);
+                Pattern pattern = Pattern.compile(regex.toLowerCase());
+                Matcher matcher = pattern.matcher(String.valueOf(text).toLowerCase());
 
                 if (anAutoLinkMode == AutoLinkMode.MODE_PHONE) {
                     while (matcher.find()) {
