@@ -1,10 +1,9 @@
 package com.auto.link.textview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.DynamicLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,9 +12,9 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -29,8 +28,7 @@ import java.util.regex.Pattern;
  * Created by PhongNX on 2019/09/30
  */
 
-@SuppressLint("AppCompatCustomView")
-public class AutoLinkTextView extends TextView {
+public class AutoLinkTextView extends AppCompatTextView {
 
     static final String TAG = AutoLinkTextView.class.getSimpleName();
 
@@ -43,7 +41,8 @@ public class AutoLinkTextView extends TextView {
     private AutoLinkMode[] autoLinkModes;
     private List<AutoLinkMode> mBoldAutoLinkModes;
 
-    private List<String> customRegexList = new ArrayList<>();
+    private int customRegexMinLength = 3;
+    private final List<String> customRegexList = new ArrayList<>();
 
     private boolean isUnderLineEnabled = false;
 
@@ -105,7 +104,7 @@ public class AutoLinkTextView extends TextView {
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // check if we should make this auto link item bold
-            if(mBoldAutoLinkModes != null && mBoldAutoLinkModes.contains(autoLinkItem.getAutoLinkMode())){
+            if (mBoldAutoLinkModes != null && mBoldAutoLinkModes.contains(autoLinkItem.getAutoLinkMode())) {
 
                 // make the auto link item bold
                 spannableString.setSpan(
@@ -131,7 +130,7 @@ public class AutoLinkTextView extends TextView {
 
         for (AutoLinkMode anAutoLinkMode : autoLinkModes) {
             for (String customRegex : customRegexList) {
-                String regex = Utils.getRegexByAutoLinkMode(anAutoLinkMode, customRegex);
+                String regex = Utils.getRegexByAutoLinkMode(anAutoLinkMode, customRegex, customRegexMinLength);
                 Pattern pattern = Pattern.compile(regex.toLowerCase());
                 Matcher matcher = pattern.matcher(String.valueOf(text).toLowerCase());
 
@@ -206,7 +205,7 @@ public class AutoLinkTextView extends TextView {
         this.defaultSelectedColor = defaultSelectedColor;
     }
 
-    public void addAutoLinkMode(AutoLinkMode... autoLinkModes) {
+    public void setAutoLinkModes(AutoLinkMode... autoLinkModes) {
         this.autoLinkModes = autoLinkModes;
     }
 
@@ -216,9 +215,27 @@ public class AutoLinkTextView extends TextView {
     }
 
     public void addCustomRegex(String regex) {
+        if (regex.length() < customRegexMinLength) {
+            throw new RuntimeException("regex length must greater than or equal customRegexMinLength " + customRegexMinLength);
+        }
         if (!customRegexList.contains(regex)) {
             customRegexList.add(regex);
         }
+    }
+
+    public void removeCustomRegex(String regex) {
+        customRegexList.remove(regex);
+    }
+
+    public void clearCustomRegex() {
+        customRegexList.clear();
+    }
+
+    public void setCustomRegexMinLength(int customRegexMinLength) {
+        if (customRegexMinLength < 1) {
+            throw new RuntimeException("customRegexMinLength must greater than or equal 1");
+        }
+        this.customRegexMinLength = customRegexMinLength;
     }
 
     public void setAutoLinkOnClickListener(AutoLinkOnClickListener autoLinkOnClickListener) {

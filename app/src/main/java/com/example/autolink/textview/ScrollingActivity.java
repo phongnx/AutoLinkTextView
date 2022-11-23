@@ -6,8 +6,6 @@ import android.os.Bundle;
 import com.auto.link.textview.AutoLinkMode;
 import com.auto.link.textview.AutoLinkOnClickListener;
 import com.auto.link.textview.AutoLinkTextView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.sample.autolink.textview.R;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import static com.auto.link.textview.AutoLinkMode.MODE_CUSTOM;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -32,7 +31,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
         autoLinkTextView.enableUnderLine();
 
-        autoLinkTextView.addAutoLinkMode( // Must to call addAutoLinkMode first
+        // Must to call setAutoLinkModes first
+        autoLinkTextView.setAutoLinkModes(
                 AutoLinkMode.MODE_HASHTAG,
                 AutoLinkMode.MODE_PHONE,
                 AutoLinkMode.MODE_URL,
@@ -40,13 +40,18 @@ public class ScrollingActivity extends AppCompatActivity {
                 AutoLinkMode.MODE_MENTION,
                 AutoLinkMode.MODE_CUSTOM);
 
-        autoLinkTextView.addCustomRegex("Allo");
         autoLinkTextView.setCustomModeColor(ContextCompat.getColor(this, R.color.color1));
         autoLinkTextView.setHashtagModeColor(ContextCompat.getColor(this, R.color.color2));
         autoLinkTextView.setPhoneModeColor(ContextCompat.getColor(this, R.color.color3));
         autoLinkTextView.setMentionModeColor(ContextCompat.getColor(this, R.color.color5));
 
-        autoLinkTextView.setText(getString(R.string.long_text));  // Set text after addAutoLinkMode
+        autoLinkTextView.setCustomRegexMinLength(2);
+        autoLinkTextView.addCustomRegex("android");
+        autoLinkTextView.addCustomRegex("ios");
+        autoLinkTextView.enableUnderLine();
+
+        // Set text after setAutoLinkModes
+        autoLinkTextView.setText(getText(R.string.long_text));
 
         autoLinkTextView.setAutoLinkOnClickListener(new AutoLinkOnClickListener() {
             @Override

@@ -22,7 +22,7 @@ The current minSDK version is API level 16 Android 4.1 (Jelly Bean).
 
 Gradle:
 ```groovy
-implementation 'com.github.phongnx:AutoLinkTextView:1.0'
+implementation 'com.github.phongnx:AutoLinkTextView:1.0.2'
 ```
 
 ## Setup and usage

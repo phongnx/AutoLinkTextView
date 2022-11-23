@@ -107,4 +107,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="label_term_of_service">Lisez notre politique de confidentialité. Appuyez sur Accepter et activer pour accepter les Conditions d\'utilisation</string>
+    <string name="action_privacy_policy">Politique de confidentialité</string>
+    <string name="action_terms_of_Service">Conditions d\'utilisation</string>
 </resources>
