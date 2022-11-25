@@ -9,11 +9,13 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.StaticLayout;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import java.lang.reflect.Field;
@@ -28,7 +30,7 @@ import java.util.regex.Pattern;
  * Created by PhongNX on 2019/09/30
  */
 
-public class AutoLinkTextView extends AppCompatTextView {
+public class AutoLinkTextView extends AppCompatTextView implements View.OnClickListener {
 
     static final String TAG = AutoLinkTextView.class.getSimpleName();
 
@@ -54,6 +56,8 @@ public class AutoLinkTextView extends AppCompatTextView {
     private int customModeColor = DEFAULT_COLOR;
     private int defaultSelectedColor = Color.LTGRAY;
 
+    private OnClickListener onClickListener;
+
     public AutoLinkTextView(Context context) {
         super(context);
     }
@@ -65,6 +69,19 @@ public class AutoLinkTextView extends AppCompatTextView {
     @Override
     public void setHighlightColor(int color) {
         super.setHighlightColor(Color.TRANSPARENT);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (onClickListener != null) {
+            onClickListener.onClick(view);
+        }
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener listener) {
+        super.setOnClickListener(listener);
+        onClickListener = listener;
     }
 
     @Override
@@ -90,15 +107,18 @@ public class AutoLinkTextView extends AppCompatTextView {
             TouchableSpan clickableSpan = new TouchableSpan(currentColor, defaultSelectedColor, isUnderLineEnabled) {
                 @Override
                 public void onClick(View widget) {
-                    if (autoLinkOnClickListener != null)
+                    if (autoLinkOnClickListener != null) {
                         autoLinkOnClickListener.onAutoLinkTextClick(
                                 autoLinkItem.getAutoLinkMode(),
                                 autoLinkItem.getMatchedText());
+                    }
                 }
             };
 
+            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(currentColor);
+
             spannableString.setSpan(
-                    clickableSpan,
+                    onClickListener != null ? foregroundColorSpan : clickableSpan,
                     autoLinkItem.getStartPoint(),
                     autoLinkItem.getEndPoint(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -289,5 +309,4 @@ public class AutoLinkTextView extends AppCompatTextView {
     public void enableUnderLine() {
         isUnderLineEnabled = true;
     }
-
 }
