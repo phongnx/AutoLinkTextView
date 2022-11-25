@@ -111,6 +111,8 @@ public class AutoLinkTextView extends AppCompatTextView implements View.OnClickL
                         autoLinkOnClickListener.onAutoLinkTextClick(
                                 autoLinkItem.getAutoLinkMode(),
                                 autoLinkItem.getMatchedText());
+                    } else if (onClickListener != null) {
+                        onClickListener.onClick(widget);
                     }
                 }
             };
