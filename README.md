@@ -22,7 +22,7 @@ The current minSDK version is API level 16 Android 4.1 (Jelly Bean).
 
 Gradle:
 ```groovy
-implementation 'com.github.phongnx:AutoLinkTextView:1.0.2'
+implementation 'com.github.phongnx:AutoLinkTextView:1.0.5'
 ```
 
 ## Setup and usage
@@ -94,11 +94,16 @@ if you use custom mode, you should also add custom regex,
 ```java
 autoLinkTextView.addCustomRegex("Allo");
 ```
+and you can edit CustomRegexMinLength to require min characters of custom regex text (default = 3)
+```java
+autoLinkTextView.setCustomRegexMinLength(5);
+```
+
 Note:Otherwise ```MODE_CUSTOM``` will return ```MODE_URL```
 -------------------------
 You can also use multiple types
 ```java
-autoLinkTextView.addAutoLinkMode(
+autoLinkTextView.setAutoLinkModes(
                 AutoLinkMode.MODE_HASHTAG,
                 AutoLinkMode.MODE_PHONE,
                 AutoLinkMode.MODE_URL,

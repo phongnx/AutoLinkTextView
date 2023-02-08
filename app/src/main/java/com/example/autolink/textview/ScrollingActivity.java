@@ -2,21 +2,20 @@ package com.example.autolink.textview;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import com.auto.link.textview.AutoLinkMode;
-import com.auto.link.textview.AutoLinkOnClickListener;
-import com.auto.link.textview.AutoLinkTextView;
-import com.sample.autolink.textview.R;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
-import static com.auto.link.textview.AutoLinkMode.MODE_CUSTOM;
+import com.auto.link.textview.AutoLinkMode;
+import com.auto.link.textview.AutoLinkOnClickListener;
+import com.auto.link.textview.AutoLinkTextView;
+import com.sample.autolink.textview.R;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -45,9 +44,10 @@ public class ScrollingActivity extends AppCompatActivity {
         autoLinkTextView.setPhoneModeColor(ContextCompat.getColor(this, R.color.color3));
         autoLinkTextView.setMentionModeColor(ContextCompat.getColor(this, R.color.color5));
 
-        autoLinkTextView.setCustomRegexMinLength(2);
+        autoLinkTextView.setCustomRegexMinLength(1);
         autoLinkTextView.addCustomRegex("android");
         autoLinkTextView.addCustomRegex("ios");
+        autoLinkTextView.addCustomRegex(".");
         autoLinkTextView.enableUnderLine();
 
         // Set text after setAutoLinkModes

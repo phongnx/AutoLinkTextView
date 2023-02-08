@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
@@ -86,7 +87,7 @@ public class AutoLinkTextView extends AppCompatTextView implements View.OnClickL
 
     @Override
     public void setText(CharSequence text, BufferType type) {
-        if (TextUtils.isEmpty(text)) {
+        if (TextUtils.isEmpty(text) || autoLinkModes == null || autoLinkModes.length == 0) {
             super.setText(text, type);
             return;
         }
@@ -153,7 +154,10 @@ public class AutoLinkTextView extends AppCompatTextView implements View.OnClickL
         for (AutoLinkMode anAutoLinkMode : autoLinkModes) {
             for (String customRegex : customRegexList) {
                 String regex = Utils.getRegexByAutoLinkMode(anAutoLinkMode, customRegex, customRegexMinLength);
-                Pattern pattern = Pattern.compile(regex.toLowerCase());
+                boolean isDot = TextUtils.equals(".", regex);
+                Pattern pattern = Pattern.compile(isDot ?
+                        "\\." : // Special case
+                        regex.toLowerCase());
                 Matcher matcher = pattern.matcher(String.valueOf(text).toLowerCase());
 
                 if (anAutoLinkMode == AutoLinkMode.MODE_PHONE) {
@@ -238,7 +242,8 @@ public class AutoLinkTextView extends AppCompatTextView implements View.OnClickL
 
     public void addCustomRegex(String regex) {
         if (regex.length() < customRegexMinLength) {
-            throw new RuntimeException("regex length must greater than or equal customRegexMinLength " + customRegexMinLength);
+            Log.e(TAG, "addCustomRegex: regex length must greater than or equal customRegexMinLength " + customRegexMinLength);
+            return;
         }
         if (!customRegexList.contains(regex)) {
             customRegexList.add(regex);
